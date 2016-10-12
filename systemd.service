@@ -1,0 +1,14 @@
+[Unit]
+Description=Cluster Server
+After=syslog.target
+
+[Service]
+SyslogIdentifier=clusterServer
+WorkingDirectory=/srv/clusterServer
+ExecStart=/usr/bin/env lsc /srv/clusterServer/index.ls
+Restart=on-failure
+StandardError=syslog
+StandardOutput=null
+
+[Install]
+WantedBy=multi-user.target
