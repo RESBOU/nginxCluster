@@ -27,7 +27,6 @@ env = do
             
         outputs:
           Console: { }
-          Redis: { }
           
 ribcage.init env, (err,env) ->
   log = env.log
