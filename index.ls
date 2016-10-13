@@ -6,7 +6,7 @@ require! {
   'child_process': { exec }
   leshdash: { values }
   lweb3: lweb
-  'lweb3/transports/server/nssocket': { nssocketServer }
+  'lweb3/transports/server/tcp': { tcpServer }
 }
 
 env = do
@@ -40,7 +40,7 @@ randomlisten (err,port) ->
     env.app.get '*', (req,res) -> res.status(500).render 'index.ejs'
     env.app.post '*', (req,res) -> res.status(500).render 'index.ejs'
     
-    server = new nssocketServer port: env.settings.port
+    server = new tcpServer port: env.settings.port, verbose: true
     server.addProtocol new lweb.protocols.query.serverServer!
 
     log 'listening at ' + env.settings.port, {}, 'init', 'ok'
@@ -59,7 +59,6 @@ randomlisten (err,port) ->
         if stderr then return log "error reloading nginx: #{ stderr }", {}, "error"
         log "nginx reloaded", {}, "reload"
     renderConfig()
-
     server.onQuery add: true, (msg, reply, { client }) ->
       data = msg.add
       log "add web server: #{ data.name }", {}, 'addServer'
