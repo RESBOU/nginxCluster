@@ -16,8 +16,8 @@
     "livescript": "^1.5.0",
     "lweb3": "git://github.com/leshy/lweb3.git",
     "ribcage": "git://github.com/leshy/ribcage.git",
-    "ribcage_logger": "git://github.com/leshy/ribcage_logger.git"
-    "ribcage_express4": "git://github.com/leshy/ribcage_express4.git"
+    "ribcage_logger": "git://github.com/leshy/ribcage_logger.git",
+    "ribcage_express4": "git://github.com/leshy/ribcage_express4.git",
     "randomlisten": "git://github.com/leshy/randomlisten.git"
   }
 }
