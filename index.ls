@@ -49,11 +49,10 @@ randomlisten (err,port) ->
 
     template = String fs.readFileSync env.settings.template
 
-    renderConfig = ->
-      renderServers = values servers
-      if not renderServers.length then servers = [{ name: 'cluster offline', ip: 'localhost', port: port }]
+    renderConfig = (servers)->
+      if (not servers or servers.length is 0) then servers = [{ name: 'cluster offline', ip: 'localhost', port: port }]
         
-      content = ejs.render template, servers: values servers
+      content = ejs.render template, servers: servers
       fs.writeFileSync env.settings.config, content
       exec env.settings.reload, (error,stdout,stderr) ->
         if error then return log "error reloading nginx: #{ String error }", {}, "error"
@@ -67,12 +66,11 @@ randomlisten (err,port) ->
       reply.end add: 'ok'
 
       servers[ data.name ] = data
-
-      renderConfig()
+      renderConfig values servers
       #client.addProtocol new lweb.protocols.query.client!    
       #client.query ping: new Date().getTime(), (msg) -> true
 
       client.once 'end', ->
         log "del server: #{ data.name }", {}, 'delServer'
         delete servers[ data.name ]
-        renderConfig()  
+        renderConfig values servers
