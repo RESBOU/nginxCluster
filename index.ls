@@ -60,7 +60,7 @@ randomlisten (err,port) ->
         log "nginx reloaded", {}, "reload"
     renderConfig()
     server.onQuery add: true, (msg, reply, { client }) ->
-      data = msg.add
+      data = { ip: client.socket.remoteAddress } <<< msg.add
       log "add web server: #{ data.name }", {}, 'addServer'
       reply.end add: 'ok'
 
