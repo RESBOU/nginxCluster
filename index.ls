@@ -55,6 +55,7 @@ randomlisten (err,port) ->
     renderConfig = (clusterName) ->
       servers = values clusters[ clusterName ]
       if (not servers or servers.length is 0) then servers = [{ name: 'cluster offline', ip: 'localhost', port: port }]
+      
       content = ejs.render template, servers: servers
       file = path.join(env.settings.configFolder, clusterName + '.conf')
       
