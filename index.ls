@@ -56,7 +56,7 @@ randomlisten (err,port) ->
       servers = values clusters[ clusterName ]
       if (not servers or servers.length is 0) then servers = [{ name: 'cluster offline', ip: 'localhost', port: port }]
       
-      content = ejs.render template, servers: servers
+      content = ejs.render template, cluster: clusterName, servers: servers
       file = path.join(env.settings.configFolder, clusterName + '.conf')
       
       fs.writeFileSync file, content
@@ -65,7 +65,6 @@ randomlisten (err,port) ->
         if error then return log "error reloading nginx: #{ String error }", {}, "error"
         if stderr then return log "error reloading nginx: #{ stderr }", {}, "error"
         log "nginx reloaded", {}, "reload"
-
 
     clusters = { }
     

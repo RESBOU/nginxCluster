@@ -3,7 +3,7 @@
 # do not edit by hand!
 #
 
-upstream cluster {
+upstream <%= cluster %> {
 <% for(var i=0; i< servers.length; i++) { server = servers[i]; %>
   # <%= server.name %>
   server <%= server.ip %>:<%= server.port %>;
